@@ -48,6 +48,23 @@ listaDINAMICO=[]
 listaESTATICO=[]
 lista=[]
 
+##prueba
+##ejemplo
+##ver_exp_let(["val","x","=","if","True","then","2","else","3","val","y","=","True","val","z","=","[1,2,3,4,5]","val","A","=","if","x<3","then","[True,False,True,False]","else","0"])
+
+global nivel
+nivel=0
+global variable
+global valor
+global tipo
+
+global listaDINAMICO
+global listaESTATICO
+global lista
+listaDINAMICO=[]
+listaESTATICO=[]
+lista=[]
+
 def imprimir(ld,le):
     print('\n'+'\t'+'TABLA DINAMICA')
     for i in range(0,len(ld)):
@@ -56,8 +73,7 @@ def imprimir(ld,le):
     print('\n'+'\t'+'TABLA ESTATICA')
     for i in range(0,len(le)):
         print('\t'+le[i][0]+'\t'+le[i][1])
-    print('\n')
-    print(lista)
+    print('\n',lista)
 
 def ver_exp_let(LE):
     if LE==[]:
@@ -87,7 +103,7 @@ def ver_exp_let_aux(LE):
             break
 
 def ver_exp_val(LE):
-    if LE[cont].lower()=="val":
+    if LE[0].lower()=="val":
         return ver_exp_var(LE[1:])
     else:
         return ver_exp_let((LE[1:]))
@@ -159,16 +175,12 @@ def averiguarTIPO(elemento):
 
 
 def TipoDatoTupla(tupla):
-    Tipo = ""
-    temp = 0
-    while (temp<len(tupla)):
-        if temp == len(tupla)-1:
-            Tipo + (averiguarTIPO(tupla[temp]))
-            temp+1
-        else:
-            Tipo + (averiguarTIPO(tupla[temp]) + "*")
-            temp+1
-    return Tipo
+    Tipo = "("
+    print(Tipo)
+    for i in range(0,len(tupla)):
+        print(i)
+        Tipo+=(averiguarTIPO(str(tupla[i])))+"*"
+    return Tipo+")"
 
 
 def val_en_if(listaVals,elem_comp, nivel):
@@ -182,6 +194,6 @@ def val_en_if(listaVals,elem_comp, nivel):
         else:
             temp -= 1
     return True
-    
+
     
 Inicio()
