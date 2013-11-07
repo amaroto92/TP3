@@ -73,7 +73,8 @@ def imprimir(ld,le):
     print('\n'+'\t'+'TABLA ESTATICA')
     for i in range(0,len(le)):
         print('\t'+le[i][0]+'\t'+le[i][1])
-    print('\n',lista)
+    print('\n')
+    print(lista)
 
 def ver_exp_let(LE):
     if LE==[]:
