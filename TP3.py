@@ -132,18 +132,26 @@ def ver_exp_var(LE):
             return ver_exp_let(LE[lugarTHEN+4:])
 
     else:
-        if len(LE[2])!=1:
-            valor=LE[2]
-            agregarD(var,valor)
-            agregarE(var,valor)
-            lista.append([var,valor,nivel])
-            return ver_exp_let(LE[3:])
-        else:
+        if len(LE[2])==1:
             valor=val_en_if(lista,LE[2],nivel)
             agregarD(var,valor)
             agregarE(var,valor)
             lista.append([var,valor,nivel])
             return ver_exp_let(LE[3:])
+        else:
+            if isinstance(LE[2],list):
+                valor=LE[2]
+                agregarD(var,valor)
+                agregarE(var,valor)
+                lista.append([var,valor,nivel])
+                return ver_exp_let(LE[3:])
+            else:
+                valor=val_en_if(lista,LE[2][0],nivel)+LE[2][1]+LE[2][2]
+                valor=str(eval(valor))
+                agregarD(var,valor)
+                agregarE(var,valor)
+                lista.append([var,valor,nivel])
+                return ver_exp_let(LE[5:])
 
 def resuelveIF(LE,var,nivel):
     if LE[0]=="True":
