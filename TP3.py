@@ -48,7 +48,6 @@ listaDINAMICO=[]
 listaESTATICO=[]
 lista=[]
 
-##prueba
 ##ejemplo
 ##ver_exp_let(["val","x","=","if","True","then","2","else","3","val","y","=","True","val","z","=","[1,2,3,4,5]","val","A","=","if","x<3","then","[True,False,True,False]","else","0"])
 
@@ -73,8 +72,7 @@ def imprimir(ld,le):
     print('\n'+'\t'+'TABLA ESTATICA')
     for i in range(0,len(le)):
         print('\t'+le[i][0]+'\t'+le[i][1])
-    print('\n')
-    print(lista)
+    print('\n',lista)
 
 def ver_exp_let(LE):
     if LE==[]:
@@ -125,19 +123,27 @@ def ver_exp_var(LE):
             agregarD(var,valor)
             agregarE(var,valor)
             lista.append([var,valor,nivel])
-            return ver_exp_let(LE[lugarTHEN+2:])
+            return ver_exp_let(LE[lugarTHEN+4:])
         else:
             valor=LE[lugarTHEN+3]
             agregarD(var,valor)
             agregarE(var,valor)
             lista.append([var,valor,nivel])
             return ver_exp_let(LE[lugarTHEN+4:])
+
     else:
-        valor=LE[2]
-        agregarD(var,valor)
-        agregarE(var,valor)
-        lista.append([var,valor,nivel])
-        return ver_exp_let(LE[3:])
+        if len(LE[2])!=1:
+            valor=LE[2]
+            agregarD(var,valor)
+            agregarE(var,valor)
+            lista.append([var,valor,nivel])
+            return ver_exp_let(LE[3:])
+        else:
+            valor=val_en_if(lista,LE[2],nivel)
+            agregarD(var,valor)
+            agregarE(var,valor)
+            lista.append([var,valor,nivel])
+            return ver_exp_let(LE[3:])
 
 def resuelveIF(LE,var,nivel):
     if LE[0]=="True":
@@ -179,8 +185,10 @@ def TipoDatoTupla(tupla):
     Tipo = "("
     print(Tipo)
     for i in range(0,len(tupla)):
-        print(i)
-        Tipo+=(averiguarTIPO(str(tupla[i])))+"*"
+        if i==len(tupla)-1:
+            Tipo+=(averiguarTIPO(str(tupla[i])))
+        else:
+            Tipo+=(averiguarTIPO(str(tupla[i])))+"*"
     return Tipo+")"
 
 
