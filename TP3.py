@@ -27,13 +27,6 @@ def Analizador(Lineas): # Aca es donde se empieza a buscar y analizar las variab
 		LE=X[1:-1]
 		return ver_exp_let(LE)
 
-def Imprimir():
-	print
-	print(" Variable    Ambiente Estatico     Ambiente Dinamico")
-	for i in range(0,len(Estatico)):
-		print("     "+Estatico[i][0]+"              "+Estatico[i][1]+ "                  "+str(Dinamico[i][1]))
-	return Inicio()
-
 
 global nivel
 nivel=0
@@ -72,7 +65,7 @@ def imprimir(ld,le):
     print('\n'+'\t'+'TABLA ESTATICA')
     for i in range(0,len(le)):
         print('\t'+le[i][0]+'\t'+le[i][1])
-    print('\n',lista)
+    #print('\n',lista)
 
 def ver_exp_let(LE):
     if LE==[]:
