@@ -63,8 +63,8 @@ def ver_exp_let(LE):
     if LE==[]:
         return imprimir(listaDINAMICO,listaESTATICO)
     elif LE[0].lower()=="let":
-        nivel+=1
-        return ver_exp_let_aux(LE[2:])
+        nivel+1
+        return ver_exp_val(LE[1:])
     elif LE[0].lower()=="val":
         return ver_exp_var(LE[1:])
     else:
