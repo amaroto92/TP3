@@ -27,20 +27,6 @@ def Analizador(Lineas): # Aca es donde se empieza a buscar y analizar las variab
 		LE=X[1:-1]
 		return ver_exp_let(LE)
 
-
-global nivel
-nivel=0
-global variable
-global valor
-global tipo
-
-global listaDINAMICO
-global listaESTATICO
-global lista
-listaDINAMICO=[]
-listaESTATICO=[]
-lista=[]
-
 ##ejemplo
 ##ver_exp_let(["val","x","=","if","True","then","2","else","3","val","y","=","True","val","z","=","[1,2,3,4,5]","val","A","=","if","x<3","then","[True,False,True,False]","else","0"])
 
