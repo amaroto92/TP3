@@ -27,6 +27,7 @@ def Analizador(Lineas): # Aca es donde se empieza a buscar y analizar las variab
 		LE=X[1:-1]
 		return ver_exp_let(LE)
 
+##prueba
 ##ejemplo
 ##ver_exp_let(["val","x","=","if","True","then","2","else","3","val","y","=","True","val","z","=","[1,2,3,4,5]","val","A","=","if","x<3","then","[True,False,True,False]","else","0"])
 
@@ -39,9 +40,13 @@ global tipo
 global listaDINAMICO
 global listaESTATICO
 global lista
+global listaNumeros
+global listaBool
 listaDINAMICO=[]
 listaESTATICO=[]
 lista=[]
+listaNumeros=('1','2','3','4','5','6','7','8','9','0')
+listaBool=("True","False")
 
 def imprimir(ld,le):
     print('\n'+'\t'+'TABLA DINAMICA')
@@ -51,15 +56,18 @@ def imprimir(ld,le):
     print('\n'+'\t'+'TABLA ESTATICA')
     for i in range(0,len(le)):
         print('\t'+le[i][0]+'\t'+le[i][1])
-    #print('\n',lista)
+    print('\n',lista)
 
 def ver_exp_let(LE):
     if LE==[]:
         return imprimir(listaDINAMICO,listaESTATICO)
     elif LE[0].lower()=="let":
-        nivel+1
+        nivel+=1
         return ver_exp_val(LE[1:])
     elif LE[0].lower()=="val":
+        return ver_exp_var(LE[1:])
+    elif LE.lower()=="end":
+        nivel-=1
         return ver_exp_var(LE[1:])
     else:
         return ver_exp_let(LE[1:])
@@ -112,25 +120,45 @@ def ver_exp_var(LE):
 
     else:
         if len(LE[2])==1:
-            valor=val_en_if(lista,LE[2],nivel)
-            agregarD(var,valor)
-            agregarE(var,valor)
-            lista.append([var,valor,nivel])
-            return ver_exp_let(LE[3:])
-        else:
-            if isinstance(LE[2],list):
+            if (LE[2]  in listaNumeros):
                 valor=LE[2]
                 agregarD(var,valor)
                 agregarE(var,valor)
                 lista.append([var,valor,nivel])
                 return ver_exp_let(LE[3:])
             else:
-                valor=val_en_if(lista,LE[2][0],nivel)+LE[2][1]+LE[2][2]
-                valor=str(eval(valor))
+                valor=val_en_if(lista,LE[2],nivel)
                 agregarD(var,valor)
                 agregarE(var,valor)
                 lista.append([var,valor,nivel])
-                return ver_exp_let(LE[5:])
+                return ver_exp_let(LE[3:])
+
+        elif len(LE[2])!=1:
+            if LE[2][0]==("[" or "("):
+                valor=LE[2]
+                agregarD(var,valor)
+                agregarE(var,valor)
+                lista.append([var,valor,nivel])
+                return ver_exp_let(LE[3:])
+            elif (LE[2][0] in listaNumeros) or (LE[2][0] in listaBool):
+                valor=LE[2]
+                agregarD(var,valor)
+                agregarE(var,valor)
+                lista.append([var,valor,nivel])
+                return ver_exp_let(LE[3:])
+            elif (LE[2] in listaNumeros) or (LE[2] in listaBool):
+                valor=LE[2]
+                agregarD(var,valor)
+                agregarE(var,valor)
+                lista.append([var,valor,nivel])
+                return ver_exp_let(LE[3:])
+            else:
+                valor=val_en_if(lista,LE[2],nivel)
+                agregarD(var,valor)
+                agregarE(var,valor)
+                lista.append([var,valor,nivel])
+                return ver_exp_let(LE[3:])
+
 
 def resuelveIF(LE,var,nivel):
     if LE[0]=="True":
@@ -190,6 +218,7 @@ def val_en_if(listaVals,elem_comp, nivel):
         else:
             temp -= 1
     return True
+
 
     
 Inicio()
