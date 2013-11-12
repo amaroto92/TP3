@@ -66,7 +66,7 @@ def ver_exp_let(LE):
         return ver_exp_val(LE[1:])
     elif LE[0].lower()=="val":
         return ver_exp_var(LE[1:])
-    elif LE.lower()=="end":
+    elif LE[0].lower()=="end":
         nivel-=1
         return ver_exp_var(LE[1:])
     else:
