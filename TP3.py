@@ -27,9 +27,6 @@ def Analizador(Lineas): # Aca es donde se empieza a buscar y analizar las variab
 		LE=X[1:-1]
 		return ver_exp_let(LE)
 
-##prueba
-##ejemplo
-##ver_exp_let(["val","x","=","if","True","then","2","else","3","val","y","=","True","val","z","=","[1,2,3,4,5]","val","A","=","if","x<3","then","[True,False,True,False]","else","0"])
 
 global nivel
 nivel=0
@@ -66,7 +63,7 @@ def ver_exp_let(LE):
         return ver_exp_val(LE[1:])
     elif LE[0].lower()=="val":
         return ver_exp_var(LE[1:])
-    elif LE[0].lower()=="end":
+    elif LE.lower()=="end":
         nivel-=1
         return ver_exp_var(LE[1:])
     else:
@@ -218,6 +215,7 @@ def val_en_if(listaVals,elem_comp, nivel):
         else:
             temp -= 1
     return True
+
 
 
     
